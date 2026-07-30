@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>स्वास्थ्य गुरु AI</title>
+
+    <link rel="stylesheet" href="ai-style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <h2>स्वास्थ्य गुरु AI</h2>
+        </div>
+
+        
+    </aside>
+
+    <!-- Main Chat Area -->
+    <main class="chatArea">
+
+        <header>
+
+            <div>
+                <h1>तपाईंको व्यक्तिगत स्वास्थ्य गुरु AI</h1>
+                
+            </div>
+
+            <div class="headerIcons">
+
+                <button title="उत्तर पढ्नुहोस्">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+
+                <button title="डार्क मोड">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+            </div>
+
+        </header>
+
+        <!-- Chat Box -->
+        <section id="chatBox">
+
+            <div class="bot">
+
+                <div class="bubble">
+
+                    <strong>नमस्ते! 👋</strong>
+
+                    <br><br>
+
+                    म <b>स्वास्थ्य गुरु AI</b> हुँ।
+
+                    <br><br>
+
+                    आज म तपाईंलाई स्वास्थ्य सम्बन्धी जानकारी, सुझाव तथा सामान्य प्रश्नहरूको उत्तर दिन तयार छु।
+
+                    <br><br>
+
+                    कृपया आफ्नो स्वास्थ्य सम्बन्धी प्रश्न सोध्नुहोस्।
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Input Area -->
+
+        <div class="inputArea">
+
+            <input
+                type="text"
+                id="prompt"
+                placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
+
+            <div class="tools">
+
+                <!-- Image -->
+                <label title="तस्बिर छान्नुहोस्">
+                    <input
+                        type="file"
+                        id="image"
+                        hidden
+                        accept="image/*">
+
+                    <i class="fa-regular fa-image"></i>
+                </label>
+
+                <!-- Video -->
+                <label title="भिडियो छान्नुहोस्">
+                    <input
+                        type="file"
+                        id="video"
+                        hidden
+                        accept="video/*">
+
+                    <i class="fa-solid fa-video"></i>
+                </label>
+
+                <!-- Camera -->
+                <button id="camera" title="क्यामेरा खोल्नुहोस्">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+
+                <!-- Microphone -->
+                <button id="mic" title="आवाजबाट प्रश्न सोध्नुहोस्">
+                    <i class="fa-solid fa-microphone"></i>
+                </button>
+
+                <!-- Speak -->
+                <button id="speak" title="उत्तर सुन्नुहोस्">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+
+                <!-- Send -->
+                <button id="send" title="पठाउनुहोस्">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="ai-script.js"></script>
+
+</body>
+</html>
