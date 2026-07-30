@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="ne">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>स्वास्थ्य गुरु AI</title>
 
     <link rel="stylesheet" href="ai-style.css">
-
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- ================= Sidebar ================= -->
-
+    <!-- Sidebar -->
     <aside class="sidebar">
 
         <div class="logo">
@@ -25,33 +22,24 @@
             <h2>स्वास्थ्य गुरु AI</h2>
         </div>
 
+        <!-- New Chat -->
         <button class="newChat" id="newChat">
             <i class="fa-solid fa-plus"></i>
-            नयाँ च्याट
+            New Chat
         </button>
 
-        <div class="history" id="history">
-
-            <div class="chatItem active">
-                नयाँ कुराकानी
-            </div>
-
-        </div>
+        <!-- Chat History -->
+        <div class="history" id="history"></div>
 
     </aside>
 
-    <!-- ================= Main ================= -->
-
+    <!-- Main Chat -->
     <main class="chatArea">
 
         <header>
 
-            <div class="headerLeft">
-
+            <div>
                 <h1>तपाईंको व्यक्तिगत स्वास्थ्य गुरु AI</h1>
-
-                <p>२४/७ स्वास्थ्य सम्बन्धी जानकारी उपलब्ध</p>
-
             </div>
 
             <div class="headerIcons">
@@ -60,7 +48,7 @@
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
-                <button id="themeToggle" title="डार्क मोड">
+                <button title="डार्क मोड">
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
@@ -68,15 +56,14 @@
 
         </header>
 
-        <!-- ================= Chat ================= -->
-
+        <!-- Chat -->
         <section id="chatBox">
 
             <div class="bot">
 
                 <div class="bubble">
 
-                    <strong>👋 नमस्ते!</strong>
+                    <strong>नमस्ते 👋</strong>
 
                     <br><br>
 
@@ -84,18 +71,7 @@
 
                     <br><br>
 
-                    तपाईं स्वास्थ्य सम्बन्धी कुनै पनि प्रश्न सोध्न सक्नुहुन्छ।
-
-                    <br><br>
-
-                    उदाहरण:
-
-                    <ul>
-                        <li>टाउको दुखेको छ, के गर्ने?</li>
-                        <li>मधुमेह भनेको के हो?</li>
-                        <li>रक्तचाप कसरी नियन्त्रण गर्ने?</li>
-                        <li>स्वस्थ खानपान कस्तो हुनुपर्छ?</li>
-                    </ul>
+                    तपाईं आफ्नो स्वास्थ्य सम्बन्धी कुनै पनि प्रश्न सोध्न सक्नुहुन्छ।
 
                 </div>
 
@@ -103,51 +79,50 @@
 
         </section>
 
-        <!-- ================= Input ================= -->
+        <!-- Input -->
 
         <div class="inputArea">
 
             <input
-                type="text"
-                id="prompt"
-                autocomplete="off"
-                placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
+            type="text"
+            id="prompt"
+            placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
 
             <div class="tools">
 
-                <label title="तस्बिर">
+                <label>
                     <input
-                        type="file"
-                        id="image"
-                        accept="image/*"
-                        hidden>
+                    type="file"
+                    id="image"
+                    hidden
+                    accept="image/*">
 
                     <i class="fa-regular fa-image"></i>
                 </label>
 
-                <label title="भिडियो">
+                <label>
                     <input
-                        type="file"
-                        id="video"
-                        accept="video/*"
-                        hidden>
+                    type="file"
+                    id="video"
+                    hidden
+                    accept="video/*">
 
                     <i class="fa-solid fa-video"></i>
                 </label>
 
-                <button id="camera" title="क्यामेरा">
+                <button id="camera">
                     <i class="fa-solid fa-camera"></i>
                 </button>
 
-                <button id="mic" title="माइक्रोफोन">
+                <button id="mic">
                     <i class="fa-solid fa-microphone"></i>
                 </button>
 
-                <button id="speak" title="उत्तर सुन्नुहोस्">
+                <button id="speak">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
-                <button id="send" title="पठाउनुहोस्">
+                <button id="send">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
 
@@ -162,5 +137,4 @@
 <script src="ai-script.js"></script>
 
 </body>
-
-</html>
+</html> change the html also in the css format
