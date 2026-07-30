@@ -44,7 +44,7 @@ async function sendMessage() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/chat", {
+        const response = await fetch("https://swastya-guru.onrender.com/chat", {
 
             method: "POST",
 
@@ -156,7 +156,7 @@ cameraBtn.addEventListener("click", async () => {
 
         addMessage("📷 Image Captured", "user");
 
-        const response = await fetch("http://localhost:3000/image", {
+        const response = await fetch("https://swastya-guru.onrender.com/image", {
 
             method: "POST",
 
