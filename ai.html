@@ -6,9 +6,8 @@
     <title>स्वास्थ्य गुरु AI</title>
 
     <link rel="stylesheet" href="ai-style.css">
-
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -23,22 +22,29 @@
             <h2>स्वास्थ्य गुरु AI</h2>
         </div>
 
-        
+        <!-- New Chat -->
+        <button class="newChat" id="newChat">
+            <i class="fa-solid fa-plus"></i>
+            New Chat
+        </button>
+
+        <!-- Chat History -->
+        <div class="history" id="history"></div>
+
     </aside>
 
-    <!-- Main Chat Area -->
+    <!-- Main Chat -->
     <main class="chatArea">
 
         <header>
 
             <div>
                 <h1>तपाईंको व्यक्तिगत स्वास्थ्य गुरु AI</h1>
-                
             </div>
 
             <div class="headerIcons">
 
-                <button title="उत्तर पढ्नुहोस्">
+                <button id="headerSpeak" title="उत्तर पढ्नुहोस्">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
@@ -50,14 +56,14 @@
 
         </header>
 
-        <!-- Chat Box -->
+        <!-- Chat -->
         <section id="chatBox">
 
             <div class="bot">
 
                 <div class="bubble">
 
-                    <strong>नमस्ते! 👋</strong>
+                    <strong>नमस्ते 👋</strong>
 
                     <br><br>
 
@@ -65,11 +71,7 @@
 
                     <br><br>
 
-                    आज म तपाईंलाई स्वास्थ्य सम्बन्धी जानकारी, सुझाव तथा सामान्य प्रश्नहरूको उत्तर दिन तयार छु।
-
-                    <br><br>
-
-                    कृपया आफ्नो स्वास्थ्य सम्बन्धी प्रश्न सोध्नुहोस्।
+                    तपाईं आफ्नो स्वास्थ्य सम्बन्धी कुनै पनि प्रश्न सोध्न सक्नुहुन्छ।
 
                 </div>
 
@@ -77,56 +79,50 @@
 
         </section>
 
-        <!-- Input Area -->
+        <!-- Input -->
 
         <div class="inputArea">
 
             <input
-                type="text"
-                id="prompt"
-                placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
+            type="text"
+            id="prompt"
+            placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
 
             <div class="tools">
 
-                <!-- Image -->
-                <label title="तस्बिर छान्नुहोस्">
+                <label>
                     <input
-                        type="file"
-                        id="image"
-                        hidden
-                        accept="image/*">
+                    type="file"
+                    id="image"
+                    hidden
+                    accept="image/*">
 
                     <i class="fa-regular fa-image"></i>
                 </label>
 
-                <!-- Video -->
-                <label title="भिडियो छान्नुहोस्">
+                <label>
                     <input
-                        type="file"
-                        id="video"
-                        hidden
-                        accept="video/*">
+                    type="file"
+                    id="video"
+                    hidden
+                    accept="video/*">
 
                     <i class="fa-solid fa-video"></i>
                 </label>
 
-                <!-- Camera -->
-                <button id="camera" title="क्यामेरा खोल्नुहोस्">
+                <button id="camera">
                     <i class="fa-solid fa-camera"></i>
                 </button>
 
-                <!-- Microphone -->
-                <button id="mic" title="आवाजबाट प्रश्न सोध्नुहोस्">
+                <button id="mic">
                     <i class="fa-solid fa-microphone"></i>
                 </button>
 
-                <!-- Speak -->
-                <button id="speak" title="उत्तर सुन्नुहोस्">
+                <button id="speak">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
-                <!-- Send -->
-                <button id="send" title="पठाउनुहोस्">
+                <button id="send">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
 
