@@ -2,19 +2,32 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import Groq from "groq-sdk";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(cors());
 app.use(express.json());
-app.use(express.static("."));
+
+// Serve all static files (HTML, CSS, JS, images)
+app.use(express.static(__dirname));
+
+// Open ai.html when visiting the website
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "ai.html"));
+});
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
+// Chat API
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -24,7 +37,8 @@ app.post("/chat", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "You are Alu AI, a helpful health assistant.",
+          content:
+            "You are Swasthya Guru AI, a helpful health assistant. Reply in Nepali whenever possible.",
         },
         {
           role: "user",
@@ -37,10 +51,16 @@ app.post("/chat", async (req, res) => {
       reply: completion.choices[0].message.content,
     });
   } catch (err) {
-    res.status(500).json({ reply: "Server error" });
+    console.error(err);
+    res.status(500).json({
+      reply: "Server error",
+    });
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running at http://localhost:3000");
+// Use Render's PORT if available
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
