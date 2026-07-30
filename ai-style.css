@@ -5,16 +5,21 @@
     font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
 }
 
+html{
+    height:100%;
+}
+
 body{
     background:#0b1120;
     color:#fff;
     min-height:100vh;
-    overflow:hidden;
+    overflow-y:auto;
+    overflow-x:hidden;
 }
 
 .container{
     display:flex;
-    height:100vh;
+    min-height:100vh;
     width:100%;
 }
 
@@ -62,8 +67,6 @@ body{
     background:#1d4ed8;
 }
 
-/* History */
-
 .history{
     flex:1;
     overflow-y:auto;
@@ -98,16 +101,17 @@ body{
     flex:1;
     display:flex;
     flex-direction:column;
+    min-height:100vh;
 }
 
 header{
-    height:80px;
     background:#111827;
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:20px 30px;
     border-bottom:1px solid rgba(255,255,255,.08);
+    flex-shrink:0;
 }
 
 header h1{
@@ -148,6 +152,7 @@ header p{
     display:flex;
     flex-direction:column;
     gap:15px;
+    scroll-behavior:smooth;
 }
 
 .bot,
@@ -169,7 +174,7 @@ header p{
     border-radius:18px;
     line-height:1.6;
     font-size:16px;
-    animation:fade .25s ease;
+    word-wrap:break-word;
 }
 
 .bot .bubble{
@@ -181,17 +186,14 @@ header p{
 }
 
 @keyframes fade{
-
     from{
         opacity:0;
         transform:translateY(10px);
     }
-
     to{
         opacity:1;
         transform:translateY(0);
     }
-
 }
 
 /* ================= Input ================= */
@@ -203,6 +205,7 @@ header p{
     align-items:center;
     gap:12px;
     padding:18px;
+    flex-shrink:0;
 }
 
 .inputArea input{
@@ -284,6 +287,7 @@ header h1{
 
 .container{
     flex-direction:column;
+    min-height:100vh;
 }
 
 .sidebar{
@@ -295,11 +299,14 @@ header h1{
     max-height:180px;
 }
 
+.chatArea{
+    min-height:calc(100vh - 180px);
+}
+
 header{
     flex-direction:column;
-    height:auto;
-    gap:10px;
     text-align:center;
+    gap:10px;
 }
 
 .bubble{

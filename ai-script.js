@@ -18,25 +18,33 @@ let lastBotReply = "";
 
 function addMessage(text, sender) {
 
-    const div = document.createElement("div");
-    div.className = sender;
+    const message = document.createElement("div");
+    message.className = sender;
 
-    div.innerHTML = `<p>${text}</p>`;
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.innerHTML = text;
 
-    chatBox.appendChild(div);
+    message.appendChild(bubble);
 
-    chatBox.scrollTop = chatBox.scrollHeight;
+    chatBox.appendChild(message);
+
+    // Auto scroll to newest message
+    setTimeout(() => {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 100);
+
 }
 
 // ===============================
-// Send Text Message
+// Send Message
 // ===============================
 
 async function sendMessage() {
 
     const message = input.value.trim();
 
-    if (message === "") return;
+    if (!message) return;
 
     addMessage(message, "user");
 
@@ -45,18 +53,18 @@ async function sendMessage() {
     try {
 
         const response = await fetch("https://swastya-guru.onrender.com/chat", {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify({
                 message: message
             })
-
         });
+
+        if (!response.ok) {
+            throw new Error("Server Error");
+        }
 
         const data = await response.json();
 
@@ -84,9 +92,11 @@ sendBtn.addEventListener("click", sendMessage);
 // Enter Key
 // ===============================
 
-input.addEventListener("keydown", function (e) {
+input.addEventListener("keydown", (e) => {
 
     if (e.key === "Enter") {
+
+        e.preventDefault();
 
         sendMessage();
 
@@ -96,12 +106,11 @@ input.addEventListener("keydown", function (e) {
 
 // ===============================
 // Speak Button
-// (Only speaks when clicked)
 // ===============================
 
 speakBtn.addEventListener("click", () => {
 
-    if (lastBotReply === "") {
+    if (!lastBotReply) {
 
         alert("No AI reply available.");
 
@@ -109,20 +118,21 @@ speakBtn.addEventListener("click", () => {
 
     }
 
+    window.speechSynthesis.cancel();
+
     const speech = new SpeechSynthesisUtterance(lastBotReply);
 
-    speech.lang = "en-US";      // Change to "ne-NP" if your browser supports Nepali
+    speech.lang = "en-US";
     speech.rate = 1;
     speech.pitch = 1;
     speech.volume = 1;
 
-    window.speechSynthesis.cancel();
     window.speechSynthesis.speak(speech);
 
 });
 
 // ===============================
-// Camera
+// Camera Capture
 // ===============================
 
 cameraBtn.addEventListener("click", async () => {
@@ -130,13 +140,10 @@ cameraBtn.addEventListener("click", async () => {
     try {
 
         const stream = await navigator.mediaDevices.getUserMedia({
-
             video: true
-
         });
 
         const video = document.createElement("video");
-
         video.srcObject = stream;
 
         await video.play();
@@ -157,18 +164,18 @@ cameraBtn.addEventListener("click", async () => {
         addMessage("📷 Image Captured", "user");
 
         const response = await fetch("https://swastya-guru.onrender.com/image", {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify({
                 image: image
             })
-
         });
+
+        if (!response.ok) {
+            throw new Error("Image Error");
+        }
 
         const data = await response.json();
 
