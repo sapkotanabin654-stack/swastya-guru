@@ -165,16 +165,29 @@ const blob = await (await fetch(image)).blob();
 const formData = new FormData();
 formData.append("image", blob, "camera.jpg");
 
+addMessage("📷 Image Captured", "user");
+
+const response = await fetch("https://swastya-guru.onrender.com/upload", {
+    method: "POST",
+    body: formData
+});
+
+if (!response.ok) {
+    throw new Error("Image Error");
+}
+
+const data = await response.json();
+
+lastBotReply = data.reply;
+addMessage(data.reply, "bot");
+
 const response = await fetch("https://swastya-guru.onrender.com/upload", {
     method: "POST",
     body: formData
 });
         addMessage("📷 Image Captured", "user");
 
-        const response = await fetch("https://swastya-guru.onrender.com/upload", {
-            method: "POST",
-           
-        });
+        
 
         if (!response.ok) {
             throw new Error("Image Error");
