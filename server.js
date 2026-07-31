@@ -14,12 +14,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import Groq from "groq-sdk";
 
-import { fileURLToPath } from "url";
+
 
 dotenv.config();
 
@@ -43,14 +39,6 @@ app.get("/", (req, res) => {
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
-const storage = multer.diskStorage({
-    destination: "uploads/",
-    filename: (req,file,cb)=>{
-        cb(null,Date.now()+path.extname(file.originalname));
-    }
-});
-
-const upload = multer({storage});
 // Store conversation in memory
 let conversation = [
     {
