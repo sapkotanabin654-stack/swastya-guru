@@ -181,24 +181,8 @@ const data = await response.json();
 lastBotReply = data.reply;
 addMessage(data.reply, "bot");
 
-const response = await fetch("https://swastya-guru.onrender.com/upload", {
-    method: "POST",
-    body: formData
-});
-        addMessage("📷 Image Captured", "user");
 
         
-
-        if (!response.ok) {
-            throw new Error("Image Error");
-        }
-
-        const data = await response.json();
-
-        lastBotReply = data.reply;
-
-        addMessage(data.reply, "bot");
-
     } catch (error) {
 
         console.error(error);
