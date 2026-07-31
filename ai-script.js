@@ -160,17 +160,20 @@ cameraBtn.addEventListener("click", async () => {
         stream.getTracks().forEach(track => track.stop());
 
         const image = canvas.toDataURL("image/jpeg");
+const blob = await (await fetch(image)).blob();
 
+const formData = new FormData();
+formData.append("image", blob, "camera.jpg");
+
+const response = await fetch("https://swastya-guru.onrender.com/upload", {
+    method: "POST",
+    body: formData
+});
         addMessage("📷 Image Captured", "user");
 
-        const response = await fetch("https://swastya-guru.onrender.com/image", {
+        const response = await fetch("https://swastya-guru.onrender.com/upload", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                image: image
-            })
+           
         });
 
         if (!response.ok) {
@@ -197,16 +200,39 @@ cameraBtn.addEventListener("click", async () => {
 // Image Upload
 // ===============================
 
-imageInput.addEventListener("change", () => {
+imageInput.addEventListener("change", async () => {
 
-    if (imageInput.files.length > 0) {
+    if (imageInput.files.length === 0) return;
 
-        addMessage("🖼️ Selected Image: " + imageInput.files[0].name, "user");
+    const file = imageInput.files[0];
+
+    addMessage("🖼️ Selected Image: " + file.name, "user");
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+
+        const response = await fetch("https://swastya-guru.onrender.com/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        lastBotReply = data.reply;
+
+        addMessage(data.reply, "bot");
+
+    } catch (error) {
+
+        console.error(error);
+
+        addMessage("❌ Image upload failed.", "bot");
 
     }
 
 });
-
 // ===============================
 // Video Upload
 // ===============================

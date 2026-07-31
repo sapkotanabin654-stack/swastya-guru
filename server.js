@@ -1,5 +1,10 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import Groq from "groq-sdk";
 import multer from "multer";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const storage = multer.diskStorage({
   destination: "uploads/",
@@ -38,7 +43,14 @@ app.get("/", (req, res) => {
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
+const storage = multer.diskStorage({
+    destination: "uploads/",
+    filename: (req,file,cb)=>{
+        cb(null,Date.now()+path.extname(file.originalname));
+    }
+});
 
+const upload = multer({storage});
 // Store conversation in memory
 let conversation = [
     {
@@ -136,6 +148,19 @@ Always answer in English.
     res.json({
         success: true
     });
+
+});
+app.post("/image", async(req,res)=>{
+
+    const {image}=req.body;
+
+    if(!image){
+        return res.status(400).json({
+            reply:"No image received."
+        });
+    }
+
+    // Vision AI code goes here
 
 });
 app.post("/upload", upload.single("image"), async (req, res) => {
