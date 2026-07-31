@@ -1,8 +1,19 @@
+import multer from "multer";
+import path from "path";
+
+const storage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import Groq from "groq-sdk";
-import path from "path";
+
 import { fileURLToPath } from "url";
 
 dotenv.config();
@@ -17,6 +28,7 @@ app.use(express.json({ limit: "20mb" }));
 
 // Serve HTML, CSS, JS
 app.use(express.static(__dirname));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Open ai.html
 app.get("/", (req, res) => {
@@ -126,7 +138,31 @@ Always answer in English.
     });
 
 });
+app.post("/upload", upload.single("image"), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                reply: "No image uploaded."
+            });
+        }
 
+        console.log("Uploaded:", req.file.filename);
+
+        res.json({
+            success: true,
+            reply: "Image uploaded successfully.",
+            filename: req.file.filename,
+            imageUrl: `/uploads/${req.file.filename}`
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            reply: "Image upload failed."
+        });
+    }
+});
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
