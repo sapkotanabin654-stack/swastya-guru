@@ -90,7 +90,7 @@ app.post("/chat", async (req, res) => {
             model: "llama-3.3-70b-versatile",
             messages: conversation,
             temperature: 0.7,
-            max_tokens: 5
+            max_tokens: 55
         });
 
         const reply = completion.choices[0].message.content;
