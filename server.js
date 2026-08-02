@@ -27,7 +27,7 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 
-// Serve HTML, CSS, JS
+
 app.use(express.static(__dirname));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });
-// Store conversation in memory
+
 let conversation = [
     {
         role: "system",
@@ -61,7 +61,6 @@ Rules:
     }
 ];
 
-// Chat API
 app.post("/chat", async (req, res) => {
 
     try {
@@ -117,7 +116,7 @@ app.post("/chat", async (req, res) => {
 
 });
 
-// New Chat
+
 app.post("/new-chat", (req, res) => {
 
     conversation = [
@@ -148,7 +147,7 @@ app.post("/image", async(req,res)=>{
         });
     }
 
-    // Vision AI code goes here
+    
 
 });
 app.post("/upload", upload.single("image"), async (req, res) => {

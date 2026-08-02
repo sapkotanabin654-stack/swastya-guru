@@ -23,7 +23,7 @@ body{
     width:100%;
 }
 
-/* ================= Sidebar ================= */
+
 
 .sidebar{
     width:280px;
@@ -95,7 +95,7 @@ body{
     background:#2563eb;
 }
 
-/* ================= Main ================= */
+
 
 .chatArea{
     flex:1;
@@ -143,7 +143,7 @@ header p{
     background:#2563eb;
 }
 
-/* ================= Chat ================= */
+
 
 #chatBox{
     flex:1;
@@ -195,8 +195,6 @@ header p{
         transform:translateY(0);
     }
 }
-
-/* ================= Input ================= */
 
 .inputArea{
     background:#111827;
@@ -254,7 +252,7 @@ header p{
     display:none;
 }
 
-/* Scrollbar */
+
 
 ::-webkit-scrollbar{
     width:8px;
@@ -269,7 +267,7 @@ header p{
     background:#111827;
 }
 
-/* ================= Responsive ================= */
+
 
 @media(max-width:900px){
 
@@ -343,4 +341,4 @@ header h1{
     font-size:14px;
 }
 
-} modify these and write all the code at once
+} 

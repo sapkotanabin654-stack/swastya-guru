@@ -1,6 +1,3 @@
-// ===============================
-// SWASTYA GURU AI - SCRIPT
-// ===============================
 
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("prompt");
@@ -12,9 +9,7 @@ const videoInput = document.getElementById("video");
 
 let lastBotReply = "";
 
-// ===============================
-// Add Message
-// ===============================
+
 
 function addMessage(text, sender) {
 
@@ -36,9 +31,7 @@ function addMessage(text, sender) {
 
 }
 
-// ===============================
-// Send Message
-// ===============================
+
 
 async function sendMessage() {
 
@@ -82,15 +75,9 @@ async function sendMessage() {
 
 }
 
-// ===============================
-// Send Button
-// ===============================
 
 sendBtn.addEventListener("click", sendMessage);
 
-// ===============================
-// Enter Key
-// ===============================
 
 input.addEventListener("keydown", (e) => {
 
@@ -104,9 +91,7 @@ input.addEventListener("keydown", (e) => {
 
 });
 
-// ===============================
-// Speak Button
-// ===============================
+
 
 speakBtn.addEventListener("click", () => {
 
@@ -131,9 +116,6 @@ speakBtn.addEventListener("click", () => {
 
 });
 
-// ===============================
-// Camera Capture
-// ===============================
 
 cameraBtn.addEventListener("click", async () => {
 
@@ -193,9 +175,7 @@ addMessage(data.reply, "bot");
 
 });
 
-// ===============================
-// Image Upload
-// ===============================
+
 
 imageInput.addEventListener("change", async () => {
 
@@ -230,9 +210,7 @@ imageInput.addEventListener("change", async () => {
     }
 
 });
-// ===============================
-// Video Upload
-// ===============================
+
 
 videoInput.addEventListener("change", () => {
 
