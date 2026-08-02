@@ -90,7 +90,7 @@ app.post("/chat", async (req, res) => {
             model: "llama-3.3-70b-versatile",
             messages: conversation,
             temperature: 0.7,
-            max_tokens: 1024
+            max_tokens: 200
         });
 
         const reply = completion.choices[0].message.content;
@@ -127,7 +127,7 @@ You are Swastya Guru AI.
 
 You are an intelligent AI healthcare assistant.
 
-Always answer in English.
+Always answer in English and if user ask answer in nepali also.
 `
         }
     ];
