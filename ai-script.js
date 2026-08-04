@@ -25,7 +25,7 @@ if (SpeechRecognition) {
     recognition.interimResults = false;
 
     recognition.onstart = () => {
-        addMessage("🎤 Listening...", "bot");
+        addMessage(" Listening...", "bot");
     };
 
     recognition.onresult = async (event) => {
