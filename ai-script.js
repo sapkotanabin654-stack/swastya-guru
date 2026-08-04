@@ -1,3 +1,4 @@
+
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("prompt");
 const sendBtn = document.getElementById("send");
@@ -8,39 +9,7 @@ const videoInput = document.getElementById("video");
 
 let lastBotReply = "";
 
-// =========================
-// Voice Recognition
-// =========================
 
-const SpeechRecognition =
-    window.SpeechRecognition || window.webkitSpeechRecognition;
-
-let recognition = null;
-
-if (SpeechRecognition) {
-    recognition = new SpeechRecognition();
-
-    recognition.lang = "en-US";
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    recognition.onstart = () => {
-        addMessage("🎤 Listening...", "bot");
-    };
-
-    recognition.onresult = async (event) => {
-        const voiceText = event.results[0][0].transcript;
-
-        input.value = voiceText;
-
-        await sendMessage();
-    };
-
-    recognition.onerror = (event) => {
-        console.error(event);
-        addMessage("❌ Voice recognition failed.", "bot");
-    };
-}
 
 function addMessage(text, sender) {
 
@@ -55,11 +24,14 @@ function addMessage(text, sender) {
 
     chatBox.appendChild(message);
 
+    // Auto scroll to newest message
     setTimeout(() => {
         chatBox.scrollTop = chatBox.scrollHeight;
     }, 100);
 
 }
+
+
 
 async function sendMessage() {
 
@@ -79,7 +51,7 @@ async function sendMessage() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                message
+                message: message
             })
         });
 
@@ -103,11 +75,9 @@ async function sendMessage() {
 
 }
 
-// =========================
-// Send Button
-// =========================
 
 sendBtn.addEventListener("click", sendMessage);
+
 
 input.addEventListener("keydown", (e) => {
 
@@ -121,28 +91,9 @@ input.addEventListener("keydown", (e) => {
 
 });
 
-// =========================
-// Microphone Button
-// Click -> Speak -> Send to AI
-// =========================
+
 
 speakBtn.addEventListener("click", () => {
-
-    if (!recognition) {
-        alert("Speech Recognition is not supported in this browser.");
-        return;
-    }
-
-    recognition.start();
-
-});
-
-// =========================
-// Speaker Button
-// Reads Last AI Reply Only
-// =========================
-
-document.getElementById("sound").addEventListener("click", () => {
 
     if (!lastBotReply) {
 
@@ -165,9 +116,6 @@ document.getElementById("sound").addEventListener("click", () => {
 
 });
 
-// =========================
-// Camera Capture
-// =========================
 
 cameraBtn.addEventListener("click", async () => {
 
@@ -178,7 +126,6 @@ cameraBtn.addEventListener("click", async () => {
         });
 
         const video = document.createElement("video");
-
         video.srcObject = stream;
 
         await video.play();
@@ -195,30 +142,29 @@ cameraBtn.addEventListener("click", async () => {
         stream.getTracks().forEach(track => track.stop());
 
         const image = canvas.toDataURL("image/jpeg");
+const blob = await (await fetch(image)).blob();
 
-        const blob = await (await fetch(image)).blob();
+const formData = new FormData();
+formData.append("image", blob, "camera.jpg");
 
-        const formData = new FormData();
+addMessage("📷 Image Captured", "user");
 
-        formData.append("image", blob, "camera.jpg");
+const response = await fetch("https://swastya-guru.onrender.com/upload", {
+    method: "POST",
+    body: formData
+});
 
-        addMessage("📷 Image Captured", "user");
+if (!response.ok) {
+    throw new Error("Image Error");
+}
 
-        const response = await fetch("https://swastya-guru.onrender.com/upload", {
-            method: "POST",
-            body: formData
-        });
+const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error("Image Error");
-        }
+lastBotReply = data.reply;
+addMessage(data.reply, "bot");
 
-        const data = await response.json();
 
-        lastBotReply = data.reply;
-
-        addMessage(data.reply, "bot");
-
+        
     } catch (error) {
 
         console.error(error);
@@ -229,9 +175,7 @@ cameraBtn.addEventListener("click", async () => {
 
 });
 
-// =========================
-// Image Upload
-// =========================
+
 
 imageInput.addEventListener("change", async () => {
 
@@ -242,7 +186,6 @@ imageInput.addEventListener("change", async () => {
     addMessage("🖼️ Selected Image: " + file.name, "user");
 
     const formData = new FormData();
-
     formData.append("image", file);
 
     try {
@@ -268,9 +211,6 @@ imageInput.addEventListener("change", async () => {
 
 });
 
-// =========================
-// Video Upload
-// =========================
 
 videoInput.addEventListener("change", () => {
 
