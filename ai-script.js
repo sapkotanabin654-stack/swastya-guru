@@ -134,7 +134,7 @@ if (recognition) {
 
     recognition.onstart = () => {
 
-        addMessage("Swastya guru is listening", "bot");
+        addMessage(" Swastya guru is listening......", "bot");
 
     };
 
