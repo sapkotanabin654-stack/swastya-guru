@@ -1,4 +1,3 @@
-
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("prompt");
 
@@ -12,9 +11,12 @@ const videoInput = document.getElementById("video");
 
 let lastBotReply = "";
 
-
-
 let recognition = null;
+let listeningMessage = null;
+
+// ----------------------------
+// Speech Recognition
+// ----------------------------
 
 if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
 
@@ -29,8 +31,9 @@ if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
     recognition.interimResults = false;
 }
 
-
-
+// ----------------------------
+// Add Chat Message
+// ----------------------------
 
 function addMessage(text, sender) {
 
@@ -45,12 +48,12 @@ function addMessage(text, sender) {
 
     chatBox.appendChild(message);
 
-    setTimeout(() => {
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }, 100);
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-
+// ----------------------------
+// Send Message
+// ----------------------------
 
 async function sendMessage() {
 
@@ -68,20 +71,17 @@ async function sendMessage() {
             "https://swastya-guru.onrender.com/chat",
             {
                 method: "POST",
-
                 headers: {
                     "Content-Type": "application/json"
                 },
-
                 body: JSON.stringify({
                     message
                 })
             }
         );
 
-        if (!response.ok) {
+        if (!response.ok)
             throw new Error("Server Error");
-        }
 
         const data = await response.json();
 
@@ -89,7 +89,9 @@ async function sendMessage() {
 
         addMessage(data.reply, "bot");
 
-    } catch (err) {
+    }
+
+    catch (err) {
 
         console.error(err);
 
@@ -99,15 +101,14 @@ async function sendMessage() {
         );
 
     }
+
 }
 
-
-
+// ----------------------------
+// Send Button
+// ----------------------------
 
 sendBtn.addEventListener("click", sendMessage);
-
-
-
 
 input.addEventListener("keydown", (e) => {
 
@@ -121,8 +122,9 @@ input.addEventListener("keydown", (e) => {
 
 });
 
-
-
+// ----------------------------
+// Microphone
+// ----------------------------
 
 if (recognition) {
 
@@ -134,11 +136,31 @@ if (recognition) {
 
     recognition.onstart = () => {
 
-        addMessage(" Swastya guru is listening......", "bot");
+        listeningMessage = document.createElement("div");
+
+        listeningMessage.className = "bot";
+
+        listeningMessage.innerHTML = `
+            <div class="bubble">
+                🎤 Swastya Guru is listening...
+            </div>
+        `;
+
+        chatBox.appendChild(listeningMessage);
+
+        chatBox.scrollTop = chatBox.scrollHeight;
 
     };
 
     recognition.onresult = (event) => {
+
+        if (listeningMessage) {
+
+            listeningMessage.remove();
+
+            listeningMessage = null;
+
+        }
 
         const text = event.results[0][0].transcript;
 
@@ -150,6 +172,14 @@ if (recognition) {
 
     recognition.onerror = (event) => {
 
+        if (listeningMessage) {
+
+            listeningMessage.remove();
+
+            listeningMessage = null;
+
+        }
+
         addMessage(
             "❌ Microphone Error : " + event.error,
             "bot"
@@ -157,20 +187,31 @@ if (recognition) {
 
     };
 
-}
+    recognition.onend = () => {
 
+        if (listeningMessage) {
+
+            listeningMessage.remove();
+
+            listeningMessage = null;
+
+        }
+
+    };
+
+}
+// ==============================
+// SPEAKER BUTTON
+// ==============================
 
 speakBtn.addEventListener("click", () => {
 
     if (!lastBotReply) {
-
         alert("No AI reply available.");
-
         return;
-
     }
 
-    window.speechSynthesis.cancel();
+    speechSynthesis.cancel();
 
     const speech = new SpeechSynthesisUtterance(lastBotReply);
 
@@ -179,12 +220,14 @@ speakBtn.addEventListener("click", () => {
     speech.pitch = 1;
     speech.volume = 1;
 
-    window.speechSynthesis.speak(speech);
+    speechSynthesis.speak(speech);
 
 });
 
 
-
+// ==============================
+// CAMERA BUTTON
+// ==============================
 
 cameraBtn.addEventListener("click", async () => {
 
@@ -195,7 +238,6 @@ cameraBtn.addEventListener("click", async () => {
         });
 
         const video = document.createElement("video");
-
         video.srcObject = stream;
 
         await video.play();
@@ -229,11 +271,8 @@ cameraBtn.addEventListener("click", async () => {
             }
         );
 
-        if (!response.ok) {
-
+        if (!response.ok)
             throw new Error("Upload Failed");
-
-        }
 
         const data = await response.json();
 
@@ -241,23 +280,20 @@ cameraBtn.addEventListener("click", async () => {
 
         addMessage(data.reply, "bot");
 
-    }
-
-    catch (err) {
+    } catch (err) {
 
         console.error(err);
 
-        addMessage(
-            "❌ Unable to access camera.",
-            "bot"
-        );
+        addMessage("❌ Unable to access camera.", "bot");
 
     }
 
 });
 
 
-
+// ==============================
+// IMAGE UPLOAD
+// ==============================
 
 imageInput.addEventListener("change", async () => {
 
@@ -265,10 +301,7 @@ imageInput.addEventListener("change", async () => {
 
     const file = imageInput.files[0];
 
-    addMessage(
-        " Selected Image: " + file.name,
-        "user"
-    );
+    addMessage("🖼️ Selected Image: " + file.name, "user");
 
     const formData = new FormData();
 
@@ -284,11 +317,8 @@ imageInput.addEventListener("change", async () => {
             }
         );
 
-        if (!response.ok) {
-
+        if (!response.ok)
             throw new Error("Upload Failed");
-
-        }
 
         const data = await response.json();
 
@@ -296,37 +326,36 @@ imageInput.addEventListener("change", async () => {
 
         addMessage(data.reply, "bot");
 
-    }
-
-    catch (err) {
+    } catch (err) {
 
         console.error(err);
 
-        addMessage(
-            "❌ Image upload failed.",
-            "bot"
-        );
+        addMessage("❌ Image upload failed.", "bot");
 
     }
 
 });
 
 
+// ==============================
+// VIDEO
+// ==============================
+
 videoInput.addEventListener("change", () => {
 
     if (videoInput.files.length === 0) return;
 
-    const file = videoInput.files[0];
-
     addMessage(
-        "🎥 Selected Video: " + file.name,
+        "🎥 Selected Video: " + videoInput.files[0].name,
         "user"
     );
 
 });
 
 
-
+// ==============================
+// NEW CHAT
+// ==============================
 
 const newChatBtn = document.getElementById("newChat");
 
@@ -336,9 +365,12 @@ if (newChatBtn) {
 
         try {
 
-            await fetch("https://swastya-guru.onrender.com/new-chat", {
-                method: "POST"
-            });
+            await fetch(
+                "https://swastya-guru.onrender.com/new-chat",
+                {
+                    method: "POST"
+                }
+            );
 
             chatBox.innerHTML = "";
 
@@ -353,10 +385,7 @@ if (newChatBtn) {
 
             console.error(err);
 
-            addMessage(
-                "❌ Unable to start a new chat.",
-                "bot"
-            );
+            addMessage("❌ Unable to start a new chat.", "bot");
 
         }
 
@@ -365,7 +394,9 @@ if (newChatBtn) {
 }
 
 
-
+// ==============================
+// HEADER SPEAKER
+// ==============================
 
 const headerSpeak = document.getElementById("headerSpeak");
 
@@ -373,22 +404,13 @@ if (headerSpeak) {
 
     headerSpeak.addEventListener("click", () => {
 
-        if (!lastBotReply) {
-
-            alert("No AI reply available.");
-
-            return;
-
-        }
+        if (!lastBotReply) return;
 
         speechSynthesis.cancel();
 
         const speech = new SpeechSynthesisUtterance(lastBotReply);
 
         speech.lang = "en-US";
-        speech.rate = 1;
-        speech.pitch = 1;
-        speech.volume = 1;
 
         speechSynthesis.speak(speech);
 
@@ -397,6 +419,9 @@ if (headerSpeak) {
 }
 
 
+// ==============================
+// PAGE LOAD
+// ==============================
 
 window.addEventListener("load", () => {
 
@@ -405,7 +430,9 @@ window.addEventListener("load", () => {
 });
 
 
-
+// ==============================
+// BEFORE CLOSE
+// ==============================
 
 window.addEventListener("beforeunload", () => {
 
@@ -414,6 +441,15 @@ window.addEventListener("beforeunload", () => {
 });
 
 
+// ==============================
+// SUPPORT CHECK
+// ==============================
+
+if (!navigator.mediaDevices) {
+
+    console.warn("Camera not supported.");
+
+}
 
 if (!("SpeechRecognition" in window) &&
     !("webkitSpeechRecognition" in window)) {
@@ -421,14 +457,3 @@ if (!("SpeechRecognition" in window) &&
     console.warn("Speech Recognition not supported.");
 
 }
-
-
-
-
-if (!navigator.mediaDevices) {
-
-    console.warn("Camera API not supported.");
-
-}
-
-
