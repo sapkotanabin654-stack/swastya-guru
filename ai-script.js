@@ -25,7 +25,7 @@ if (SpeechRecognition) {
     recognition.interimResults = false;
 
     recognition.onstart = () => {
-        addMessage(" Listening...", "bot");
+        addMessage("Listening...", "bot");
     };
 
     recognition.onresult = async (event) => {
@@ -38,7 +38,7 @@ if (SpeechRecognition) {
 
     recognition.onerror = (event) => {
         console.error(event);
-        addMessage("❌ Voice recognition failed.", "bot");
+        addMessage("Voice recognition failed.", "bot");
     };
 }
 
