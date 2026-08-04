@@ -13,9 +13,6 @@ const videoInput = document.getElementById("video");
 let lastBotReply = "";
 
 
-// ======================
-// MICROPHONE SETUP
-// ======================
 
 let recognition = null;
 
@@ -33,9 +30,7 @@ if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
 }
 
 
-// ======================
-// ADD MESSAGE
-// ======================
+
 
 function addMessage(text, sender) {
 
@@ -56,9 +51,6 @@ function addMessage(text, sender) {
 }
 
 
-// ======================
-// SEND MESSAGE
-// ======================
 
 async function sendMessage() {
 
@@ -110,16 +102,12 @@ async function sendMessage() {
 }
 
 
-// ======================
-// SEND BUTTON
-// ======================
+
 
 sendBtn.addEventListener("click", sendMessage);
 
 
-// ======================
-// ENTER KEY
-// ======================
+
 
 input.addEventListener("keydown", (e) => {
 
@@ -134,9 +122,7 @@ input.addEventListener("keydown", (e) => {
 });
 
 
-// ======================
-// MICROPHONE
-// ======================
+
 
 if (recognition) {
 
@@ -148,7 +134,7 @@ if (recognition) {
 
     recognition.onstart = () => {
 
-        addMessage("🎤 Listening...", "bot");
+        addMessage("Swastya guru is listening", "bot");
 
     };
 
@@ -172,9 +158,7 @@ if (recognition) {
     };
 
 }
-// ======================
-// SPEAKER BUTTON
-// ======================
+
 
 speakBtn.addEventListener("click", () => {
 
@@ -200,9 +184,7 @@ speakBtn.addEventListener("click", () => {
 });
 
 
-// ======================
-// CAMERA BUTTON
-// ======================
+
 
 cameraBtn.addEventListener("click", async () => {
 
@@ -275,9 +257,7 @@ cameraBtn.addEventListener("click", async () => {
 });
 
 
-// ======================
-// IMAGE UPLOAD
-// ======================
+
 
 imageInput.addEventListener("change", async () => {
 
@@ -330,9 +310,7 @@ imageInput.addEventListener("change", async () => {
     }
 
 });
-// ======================
-// VIDEO UPLOAD
-// ======================
+
 
 videoInput.addEventListener("change", () => {
 
@@ -348,9 +326,7 @@ videoInput.addEventListener("change", () => {
 });
 
 
-// ======================
-// NEW CHAT
-// ======================
+
 
 const newChatBtn = document.getElementById("newChat");
 
@@ -389,9 +365,7 @@ if (newChatBtn) {
 }
 
 
-// ======================
-// HEADER SPEAKER BUTTON
-// ======================
+
 
 const headerSpeak = document.getElementById("headerSpeak");
 
@@ -423,9 +397,6 @@ if (headerSpeak) {
 }
 
 
-// ======================
-// PAGE LOAD
-// ======================
 
 window.addEventListener("load", () => {
 
@@ -434,9 +405,7 @@ window.addEventListener("load", () => {
 });
 
 
-// ======================
-// STOP SPEAKING WHEN PAGE CLOSES
-// ======================
+
 
 window.addEventListener("beforeunload", () => {
 
