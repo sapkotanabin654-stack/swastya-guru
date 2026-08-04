@@ -14,9 +14,6 @@ let lastBotReply = "";
 let recognition = null;
 let listeningMessage = null;
 
-// ----------------------------
-// Speech Recognition
-// ----------------------------
 
 if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
 
@@ -31,9 +28,7 @@ if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
     recognition.interimResults = false;
 }
 
-// ----------------------------
-// Add Chat Message
-// ----------------------------
+
 
 function addMessage(text, sender) {
 
@@ -51,9 +46,6 @@ function addMessage(text, sender) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// ----------------------------
-// Send Message
-// ----------------------------
 
 async function sendMessage() {
 
@@ -96,7 +88,7 @@ async function sendMessage() {
         console.error(err);
 
         addMessage(
-            "❌ Unable to connect to AI server.",
+            " Unable to connect to AI server.",
             "bot"
         );
 
@@ -104,9 +96,7 @@ async function sendMessage() {
 
 }
 
-// ----------------------------
-// Send Button
-// ----------------------------
+
 
 sendBtn.addEventListener("click", sendMessage);
 
@@ -122,9 +112,7 @@ input.addEventListener("keydown", (e) => {
 
 });
 
-// ----------------------------
-// Microphone
-// ----------------------------
+
 
 if (recognition) {
 
@@ -142,7 +130,7 @@ if (recognition) {
 
         listeningMessage.innerHTML = `
             <div class="bubble">
-                🎤 Swastya Guru is listening...
+                 Swastya Guru is listening......
             </div>
         `;
 
@@ -181,7 +169,7 @@ if (recognition) {
         }
 
         addMessage(
-            "❌ Microphone Error : " + event.error,
+            " Microphone Error : " + event.error,
             "bot"
         );
 
@@ -200,9 +188,6 @@ if (recognition) {
     };
 
 }
-// ==============================
-// SPEAKER BUTTON
-// ==============================
 
 speakBtn.addEventListener("click", () => {
 
@@ -225,9 +210,7 @@ speakBtn.addEventListener("click", () => {
 });
 
 
-// ==============================
-// CAMERA BUTTON
-// ==============================
+
 
 cameraBtn.addEventListener("click", async () => {
 
@@ -284,7 +267,7 @@ cameraBtn.addEventListener("click", async () => {
 
         console.error(err);
 
-        addMessage("❌ Unable to access camera.", "bot");
+        addMessage(" Unable to access camera.", "bot");
 
     }
 
@@ -301,7 +284,7 @@ imageInput.addEventListener("change", async () => {
 
     const file = imageInput.files[0];
 
-    addMessage("🖼️ Selected Image: " + file.name, "user");
+    addMessage("Selected Image: " + file.name, "user");
 
     const formData = new FormData();
 
@@ -346,7 +329,7 @@ videoInput.addEventListener("change", () => {
     if (videoInput.files.length === 0) return;
 
     addMessage(
-        "🎥 Selected Video: " + videoInput.files[0].name,
+        " Selected Video: " + videoInput.files[0].name,
         "user"
     );
 
@@ -377,7 +360,7 @@ if (newChatBtn) {
             lastBotReply = "";
 
             addMessage(
-                "<strong>👋 Hello!</strong><br><br>I am Swastya Guru AI. Ask me any health-related question.",
+                "<strong> Hello!</strong><br><br>I am Swastya Guru AI. Ask me any health-related question.",
                 "bot"
             );
 
@@ -385,7 +368,7 @@ if (newChatBtn) {
 
             console.error(err);
 
-            addMessage("❌ Unable to start a new chat.", "bot");
+            addMessage(" Unable to start a new chat.", "bot");
 
         }
 
