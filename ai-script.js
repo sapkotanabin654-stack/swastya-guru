@@ -2,10 +2,10 @@ const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("prompt");
 const sendBtn = document.getElementById("send");
 const micBtn = document.getElementById("mic");
+const speakBtn = document.getElementById("speak");
 const cameraBtn = document.getElementById("camera");
 const imageInput = document.getElementById("uploadImage");
 const videoInput = document.getElementById("video");
-
 
 let lastBotReply = "";
 
@@ -108,17 +108,23 @@ async function sendMessage() {
 // Send Button
 // =========================
 
-sendBtn.addEventListener("click", sendMessage);
+speakBtn.addEventListener("click", () => {
 
-input.addEventListener("keydown", (e) => {
-
-    if (e.key === "Enter") {
-
-        e.preventDefault();
-
-        sendMessage();
-
+    if (!lastBotReply) {
+        alert("No AI reply available.");
+        return;
     }
+
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(lastBotReply);
+
+    speech.lang = "en-US";
+    speech.rate = 1;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    window.speechSynthesis.speak(speech);
 
 });
 
@@ -134,7 +140,29 @@ micBtn.addEventListener("click", () => {
 
 });
 
+// =========================
+// Sound Button
+// =========================
 
+soundBtn.addEventListener("click", () => {
+
+    if (!lastBotReply) {
+        alert("No AI reply available.");
+        return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(lastBotReply);
+
+    speech.lang = "en-US";
+    speech.rate = 1;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    window.speechSynthesis.speak(speech);
+
+});
 
 
 cameraBtn.addEventListener("click", async () => {
