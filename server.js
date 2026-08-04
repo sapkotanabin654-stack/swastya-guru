@@ -31,7 +31,6 @@ app.use(express.json({ limit: "20mb" }));
 app.use(express.static(__dirname));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Open ai.html
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "ai.html"));
 });
