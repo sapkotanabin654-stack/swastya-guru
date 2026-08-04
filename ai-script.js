@@ -1,10 +1,11 @@
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("prompt");
 const sendBtn = document.getElementById("send");
-const speakBtn = document.getElementById("speak");
+const micBtn = document.getElementById("mic");
 const cameraBtn = document.getElementById("camera");
-const imageInput = document.getElementById("image");
+const imageInput = document.getElementById("uploadImage");
 const videoInput = document.getElementById("video");
+
 
 let lastBotReply = "";
 
@@ -38,7 +39,7 @@ if (SpeechRecognition) {
 
     recognition.onerror = (event) => {
         console.error(event);
-        addMessage("Voice recognition failed.", "bot");
+        addMessage("Voice recognition failed.", "bot"); 
     };
 }
 
@@ -121,12 +122,8 @@ input.addEventListener("keydown", (e) => {
 
 });
 
-// =========================
-// Microphone Button
-// Click -> Speak -> Send to AI
-// =========================
 
-speakBtn.addEventListener("click", () => {
+micBtn.addEventListener("click", () => {
 
     if (!recognition) {
         alert("Speech Recognition is not supported in this browser.");
@@ -137,37 +134,8 @@ speakBtn.addEventListener("click", () => {
 
 });
 
-// =========================
-// Speaker Button
-// Reads Last AI Reply Only
-// =========================
 
-document.getElementById("sound").addEventListener("click", () => {
 
-    if (!lastBotReply) {
-
-        alert("No AI reply available.");
-
-        return;
-
-    }
-
-    window.speechSynthesis.cancel();
-
-    const speech = new SpeechSynthesisUtterance(lastBotReply);
-
-    speech.lang = "en-US";
-    speech.rate = 1;
-    speech.pitch = 1;
-    speech.volume = 1;
-
-    window.speechSynthesis.speak(speech);
-
-});
-
-// =========================
-// Camera Capture
-// =========================
 
 cameraBtn.addEventListener("click", async () => {
 
