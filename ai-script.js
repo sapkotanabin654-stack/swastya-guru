@@ -138,7 +138,7 @@ if (recognition) {
 
         listeningMessage.innerHTML = `
             <div class="bubble">
-                🎤 Swastya Guru is listening...
+               स्वास्थ्य गुरु ले सुनिरहेको छ.......
             </div>
         `;
 
