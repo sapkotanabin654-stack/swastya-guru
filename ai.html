@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>स्वास्थ्य गुरु AI</title>
+    <title>Health Guru AI</title>
 
     <link rel="stylesheet" href="ai-style.css">
+
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -19,7 +20,7 @@
 
         <div class="logo">
             <i class="fa-solid fa-heart-pulse"></i>
-            <h2>स्वास्थ्य गुरु AI</h2>
+            <h2>Health Guru AI</h2>
         </div>
 
         <button class="newChat" id="newChat">
@@ -27,27 +28,25 @@
             New Chat
         </button>
 
-        <div class="history" id="history"></div>
+        <div id="history" class="history"></div>
 
     </aside>
 
-    <!-- Main Chat Area -->
+    <!-- Chat Area -->
     <main class="chatArea">
 
         <!-- Header -->
-        <header>
+        <header class="chatHeader">
 
-            <div>
-                <h1>तपाईंको व्यक्तिगत स्वास्थ्य गुरु AI</h1>
-            </div>
+            <h1>Your Personal Health Guru AI</h1>
 
             <div class="headerIcons">
 
-                <button id="headerSpeak" title="उत्तर पढ्नुहोस्">
+                <button id="headerSpeak" title="Speak">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
-                <button title="Dark Mode">
+                <button id="darkMode" title="Dark Mode">
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
@@ -55,32 +54,36 @@
 
         </header>
 
-        <!-- Scrollable Chat -->
+        <!-- Chat Messages -->
         <section id="chatBox" class="chatBox">
 
             <div class="bot">
+
                 <div class="bubble">
-                    <strong>नमस्ते 👋</strong>
+
+                    <strong>Hello 👋</strong>
 
                     <br><br>
 
-                    म <b>स्वास्थ्य गुरु AI</b> हुँ।
+                    I am <b>Health Guru AI</b>.
 
                     <br><br>
 
-                    तपाईं आफ्नो स्वास्थ्य सम्बन्धी कुनै पनि प्रश्न सोध्न सक्नुहुन्छ।
+                    You can ask me any health-related question.
+
                 </div>
+
             </div>
 
         </section>
 
-        <!-- Fixed Input Area -->
+        <!-- Input Area -->
         <div class="inputArea">
 
             <input
                 type="text"
                 id="prompt"
-                placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
+                placeholder="Write your health-related question here...">
 
             <div class="tools">
 
@@ -88,8 +91,9 @@
                     <input
                         type="file"
                         id="uploadImage"
-                        hidden
-                        accept="image/*">
+                        accept="image/*"
+                        hidden>
+
                     <i class="fa-regular fa-image"></i>
                 </label>
 
@@ -97,8 +101,9 @@
                     <input
                         type="file"
                         id="video"
-                        hidden
-                        accept="video/*">
+                        accept="video/*"
+                        hidden>
+
                     <i class="fa-solid fa-video"></i>
                 </label>
 
@@ -129,4 +134,4 @@
 <script src="ai-script.js"></script>
 
 </body>
-</html> 
+</html>

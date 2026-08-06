@@ -5,8 +5,7 @@
     font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
 }
 
-html,
-body{
+html,body{
     width:100%;
     height:100%;
     overflow:hidden;
@@ -58,54 +57,17 @@ body{
     color:#fff;
     cursor:pointer;
     font-size:16px;
-    transition:.3s;
     margin-bottom:18px;
+    transition:.3s;
 }
 
 .newChat:hover{
     background:#1d4ed8;
 }
 
-.historyTitle{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:15px;
-    margin-bottom:12px;
-    color:#d1d5db;
-}
-
 .history{
     flex:1;
     overflow-y:auto;
-    padding-right:5px;
-}
-
-#historyList{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-.chatItem{
-    background:#1f2937;
-    padding:12px 14px;
-    border-radius:10px;
-    cursor:pointer;
-    transition:.25s;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    border:1px solid transparent;
-}
-
-.chatItem:hover{
-    background:#374151;
-}
-
-.chatItem.active{
-    background:#2563eb;
-    border-color:#60a5fa;
 }
 
 /* ================= Main ================= */
@@ -115,23 +77,30 @@ body{
     display:flex;
     flex-direction:column;
     height:100vh;
+    overflow:hidden;
 }
 
+/* ================= Header ================= */
+
 header{
+    height:75px;
     background:#111827;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px 30px;
+    padding:0 25px;
     border-bottom:1px solid rgba(255,255,255,.08);
+    flex-shrink:0;
 }
 
 header h1{
     font-size:28px;
+    font-weight:600;
 }
 
 .headerIcons{
     display:flex;
+    align-items:center;
     gap:10px;
 }
 
@@ -141,9 +110,10 @@ header h1{
     border:none;
     border-radius:50%;
     background:#1f2937;
-    color:white;
+    color:#fff;
     cursor:pointer;
     transition:.3s;
+    font-size:18px;
 }
 
 .headerIcons button:hover{
@@ -178,7 +148,7 @@ header h1{
 
 .bubble{
     max-width:70%;
-    padding:15px 20px;
+    padding:16px 20px;
     border-radius:18px;
     line-height:1.6;
     font-size:16px;
@@ -196,7 +166,7 @@ header h1{
 @keyframes fade{
     from{
         opacity:0;
-        transform:translateY(12px);
+        transform:translateY(10px);
     }
     to{
         opacity:1;
@@ -213,6 +183,7 @@ header h1{
     align-items:center;
     gap:12px;
     padding:18px;
+    flex-shrink:0;
 }
 
 .inputArea input{
@@ -233,6 +204,7 @@ header h1{
 
 .tools{
     display:flex;
+    align-items:center;
     gap:10px;
 }
 
@@ -248,7 +220,7 @@ header h1{
     align-items:center;
     color:white;
     cursor:pointer;
-    transition:.25s;
+    transition:.3s;
     font-size:18px;
 }
 
@@ -289,7 +261,7 @@ header h1{
 }
 
 header h1{
-    font-size:24px;
+    font-size:22px;
 }
 
 }
@@ -302,21 +274,36 @@ header h1{
 
 .sidebar{
     width:100%;
-    height:180px;
-}
-
-.history{
-    max-height:90px;
+    height:160px;
 }
 
 .chatArea{
-    height:calc(100vh - 180px);
+    height:calc(100vh - 160px);
 }
 
+/* Header stays in one row */
 header{
-    flex-direction:column;
-    gap:10px;
-    text-align:center;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 15px;
+}
+
+header h1{
+    font-size:20px;
+    flex:1;
+}
+
+.headerIcons{
+    display:flex;
+    flex-direction:row;
+    gap:8px;
+}
+
+.headerIcons button{
+    width:40px;
+    height:40px;
 }
 
 .bubble{
@@ -345,12 +332,17 @@ header{
 }
 
 header h1{
-    font-size:20px;
+    font-size:18px;
 }
 
 .bubble{
     max-width:100%;
     font-size:15px;
+}
+
+.headerIcons button{
+    width:36px;
+    height:36px;
 }
 
 }
