@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ne">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>स्वास्थ्य गुरु AI</title>
 
     <link rel="stylesheet" href="ai-style.css">
+
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
@@ -14,40 +17,50 @@
 
 <div class="container">
 
-    <!-- Sidebar -->
+    <!-- ================= Sidebar ================= -->
+
     <aside class="sidebar">
 
+        <!-- Logo -->
         <div class="logo">
             <i class="fa-solid fa-heart-pulse"></i>
             <h2>स्वास्थ्य गुरु AI</h2>
         </div>
 
-        <button class="newChat" id="newChat">
+        <!-- New Chat -->
+        <button id="newChat" class="newChat">
             <i class="fa-solid fa-plus"></i>
-            New Chat
+            <span>New Chat</span>
         </button>
 
-        <div class="history" id="history"></div>
+        <!-- Chat History -->
+        <div class="historyTitle">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Chat History</span>
+        </div>
+
+        <div id="history" class="history">
+            <div id="historyList"></div>
+        </div>
 
     </aside>
 
-    <!-- Main Chat Area -->
+    <!-- ================= Main Chat ================= -->
+
     <main class="chatArea">
 
         <!-- Header -->
         <header>
 
-            <div>
-                <h1>तपाईंको व्यक्तिगत स्वास्थ्य गुरु AI</h1>
-            </div>
+            <h1>तपाईंको व्यक्तिगत स्वास्थ्य गुरु AI</h1>
 
             <div class="headerIcons">
 
-                <button id="headerSpeak" title="उत्तर पढ्नुहोस्">
+                <button id="headerSpeak" title="Read Last Reply">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
-                <button title="Dark Mode">
+                <button id="darkMode" title="Dark Mode">
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
@@ -55,65 +68,76 @@
 
         </header>
 
-        <!-- Scrollable Chat -->
+        <!-- Messages -->
         <section id="chatBox" class="chatBox">
 
             <div class="bot">
+
                 <div class="bubble">
-                    <strong>नमस्ते 👋</strong>
+
+                    <strong>👋 Hello!</strong>
 
                     <br><br>
 
-                    म <b>स्वास्थ्य गुरु AI</b> हुँ।
+                    I am <b>Swastya Guru AI</b>.
 
                     <br><br>
 
-                    तपाईं आफ्नो स्वास्थ्य सम्बन्धी कुनै पनि प्रश्न सोध्न सक्नुहुन्छ।
+                    Ask me any health-related question.
+
                 </div>
+
             </div>
 
         </section>
 
-        <!-- Fixed Input Area -->
+        <!-- Input -->
         <div class="inputArea">
 
             <input
-                type="text"
                 id="prompt"
-                placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
+                type="text"
+                autocomplete="off"
+                placeholder="Type your health question...">
 
             <div class="tools">
 
+                <!-- Image -->
                 <label for="uploadImage">
                     <input
-                        type="file"
                         id="uploadImage"
+                        type="file"
                         hidden
                         accept="image/*">
                     <i class="fa-regular fa-image"></i>
                 </label>
 
+                <!-- Video -->
                 <label for="video">
                     <input
-                        type="file"
                         id="video"
+                        type="file"
                         hidden
                         accept="video/*">
                     <i class="fa-solid fa-video"></i>
                 </label>
 
+                <!-- Camera -->
                 <button id="camera" type="button">
                     <i class="fa-solid fa-camera"></i>
                 </button>
 
+                <!-- Microphone -->
                 <button id="mic" type="button">
                     <i class="fa-solid fa-microphone"></i>
                 </button>
 
+                <!-- Speaker -->
                 <button id="speak" type="button">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
+                <!-- Send -->
                 <button id="send" type="button">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
