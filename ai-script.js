@@ -11,9 +11,14 @@ const videoInput = document.getElementById("video");
 
 let lastBotReply = "";
 
+// ===== Speech =====
 let recognition = null;
 let listeningMessage = null;
 
+let speech = null;
+let isSpeaking = false;
+
+// ================= Speech Recognition =================
 
 if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
 
@@ -28,7 +33,7 @@ if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
     recognition.interimResults = false;
 }
 
-
+// ================= Chat Message =================
 
 function addMessage(text, sender) {
 
@@ -43,9 +48,14 @@ function addMessage(text, sender) {
 
     chatBox.appendChild(message);
 
-    chatBox.scrollTop = chatBox.scrollHeight;
+    // Auto scroll
+    requestAnimationFrame(() => {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
 }
 
+// ================= Send =================
 
 async function sendMessage() {
 
@@ -81,14 +91,12 @@ async function sendMessage() {
 
         addMessage(data.reply, "bot");
 
-    }
-
-    catch (err) {
+    } catch (err) {
 
         console.error(err);
 
         addMessage(
-            " Unable to connect to AI server.",
+            "❌ Unable to connect to AI server.",
             "bot"
         );
 
@@ -96,7 +104,7 @@ async function sendMessage() {
 
 }
 
-
+// ================= Send Button =================
 
 sendBtn.addEventListener("click", sendMessage);
 
@@ -112,7 +120,7 @@ input.addEventListener("keydown", (e) => {
 
 });
 
-
+// ================= Microphone =================
 
 if (recognition) {
 
@@ -130,7 +138,7 @@ if (recognition) {
 
         listeningMessage.innerHTML = `
             <div class="bubble">
-                 Swastya Guru is listening......
+                🎤 Swastya Guru is listening...
             </div>
         `;
 
@@ -150,9 +158,7 @@ if (recognition) {
 
         }
 
-        const text = event.results[0][0].transcript;
-
-        input.value = text;
+        input.value = event.results[0][0].transcript;
 
         sendMessage();
 
@@ -169,7 +175,7 @@ if (recognition) {
         }
 
         addMessage(
-            " Microphone Error : " + event.error,
+            "❌ Microphone Error : " + event.error,
             "bot"
         );
 
@@ -189,6 +195,8 @@ if (recognition) {
 
 }
 
+// ================= Speaker Button =================
+
 speakBtn.addEventListener("click", () => {
 
     if (!lastBotReply) {
@@ -196,21 +204,54 @@ speakBtn.addEventListener("click", () => {
         return;
     }
 
-    speechSynthesis.cancel();
+    // Stop if already speaking
+    if (speechSynthesis.speaking || isSpeaking) {
 
-    const speech = new SpeechSynthesisUtterance(lastBotReply);
+        speechSynthesis.cancel();
+
+        isSpeaking = false;
+
+        speakBtn.innerHTML =
+            '<i class="fa-solid fa-volume-high"></i>';
+
+        return;
+    }
+
+    speech = new SpeechSynthesisUtterance(lastBotReply);
 
     speech.lang = "en-US";
     speech.rate = 1;
     speech.pitch = 1;
     speech.volume = 1;
 
+    isSpeaking = true;
+
+    // Change icon while speaking
+    speakBtn.innerHTML =
+        '<i class="fa-solid fa-stop"></i>';
+
+    speech.onend = () => {
+
+        isSpeaking = false;
+
+        speakBtn.innerHTML =
+            '<i class="fa-solid fa-volume-high"></i>';
+
+    };
+
+    speech.onerror = () => {
+
+        isSpeaking = false;
+
+        speakBtn.innerHTML =
+            '<i class="fa-solid fa-volume-high"></i>';
+
+    };
+
     speechSynthesis.speak(speech);
 
 });
-
-
-
+// ================= CAMERA =================
 
 cameraBtn.addEventListener("click", async () => {
 
@@ -234,6 +275,7 @@ cameraBtn.addEventListener("click", async () => {
 
         ctx.drawImage(video, 0, 0);
 
+        // Stop camera
         stream.getTracks().forEach(track => track.stop());
 
         const image = canvas.toDataURL("image/jpeg");
@@ -244,7 +286,7 @@ cameraBtn.addEventListener("click", async () => {
 
         formData.append("image", blob, "camera.jpg");
 
-        addMessage("📷 Image Captured", "user");
+        addMessage("📷 Camera image captured.", "user");
 
         const response = await fetch(
             "https://swastya-guru.onrender.com/upload",
@@ -267,22 +309,21 @@ cameraBtn.addEventListener("click", async () => {
 
         console.error(err);
 
-        addMessage(" Unable to access camera.", "bot");
+        addMessage("❌ Unable to access camera.", "bot");
 
     }
 
 });
 
-
-
+// ================= IMAGE UPLOAD =================
 
 imageInput.addEventListener("change", async () => {
 
-    if (imageInput.files.length === 0) return;
+    if (!imageInput.files.length) return;
 
     const file = imageInput.files[0];
 
-    addMessage("Selected Image: " + file.name, "user");
+    addMessage("🖼️ Image: " + file.name, "user");
 
     const formData = new FormData();
 
@@ -317,23 +358,18 @@ imageInput.addEventListener("change", async () => {
 
 });
 
-
- 
+// ================= VIDEO =================
 
 videoInput.addEventListener("change", () => {
 
-    if (videoInput.files.length === 0) return;
+    if (!videoInput.files.length) return;
 
-    addMessage(
-        " Selected Video: " + videoInput.files[0].name,
-        "user"
-    );
+    const file = videoInput.files[0];
+
+    addMessage("🎥 Video selected: " + file.name, "user");
 
 });
-
-
-
-
+// ================= NEW CHAT =================
 
 const newChatBtn = document.getElementById("newChat");
 
@@ -342,6 +378,14 @@ if (newChatBtn) {
     newChatBtn.addEventListener("click", async () => {
 
         try {
+
+            // Stop speaking if AI is talking
+            speechSynthesis.cancel();
+
+            isSpeaking = false;
+
+            speakBtn.innerHTML =
+                '<i class="fa-solid fa-volume-high"></i>';
 
             await fetch(
                 "https://swastya-guru.onrender.com/new-chat",
@@ -355,7 +399,7 @@ if (newChatBtn) {
             lastBotReply = "";
 
             addMessage(
-                "<strong> Hello!</strong><br><br>I am Swastya Guru AI. Ask me any health-related question.",
+                "<strong>👋 Hello!</strong><br><br>I am <b>Swastya Guru AI</b>.<br><br>Ask me any health-related question.",
                 "bot"
             );
 
@@ -363,7 +407,10 @@ if (newChatBtn) {
 
             console.error(err);
 
-            addMessage(" Unable to start a new chat.", "bot");
+            addMessage(
+                "❌ Unable to start a new chat.",
+                "bot"
+            );
 
         }
 
@@ -371,9 +418,7 @@ if (newChatBtn) {
 
 }
 
-
-
-
+// ================= HEADER SPEAKER =================
 
 const headerSpeak = document.getElementById("headerSpeak");
 
@@ -381,32 +426,47 @@ if (headerSpeak) {
 
     headerSpeak.addEventListener("click", () => {
 
-        if (!lastBotReply) return;
+        if (!lastBotReply) {
+            alert("No AI reply available.");
+            return;
+        }
 
-        speechSynthesis.cancel();
+        // Stop if already speaking
+        if (speechSynthesis.speaking) {
 
-        const speech = new SpeechSynthesisUtterance(lastBotReply);
+            speechSynthesis.cancel();
 
-        speech.lang = "en-US";
+            return;
 
-        speechSynthesis.speak(speech);
+        }
+
+        const headerSpeech =
+            new SpeechSynthesisUtterance(lastBotReply);
+
+        headerSpeech.lang = "en-US";
+        headerSpeech.rate = 1;
+        headerSpeech.pitch = 1;
+        headerSpeech.volume = 1;
+
+        speechSynthesis.speak(headerSpeech);
 
     });
 
 }
-
-
-
-
+// ================= PAGE LOAD =================
 
 window.addEventListener("load", () => {
 
     input.focus();
 
+    // Scroll to latest message
+    setTimeout(() => {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 100);
+
 });
 
-
-
+// ================= STOP SPEECH WHEN LEAVING =================
 
 window.addEventListener("beforeunload", () => {
 
@@ -414,18 +474,65 @@ window.addEventListener("beforeunload", () => {
 
 });
 
-
-
+// ================= SUPPORT CHECK =================
 
 if (!navigator.mediaDevices) {
 
-    console.warn("Camera not supported.");
+    console.warn("Camera is not supported on this browser.");
 
 }
 
-if (!("SpeechRecognition" in window) &&
-    !("webkitSpeechRecognition" in window)) {
+if (
+    !("SpeechRecognition" in window) &&
+    !("webkitSpeechRecognition" in window)
+) {
 
-    console.warn("Speech Recognition not supported.");
+    console.warn("Speech Recognition is not supported.");
 
 }
+
+// ================= KEEP CHAT SCROLLED TO BOTTOM =================
+
+const observer = new MutationObserver(() => {
+
+    requestAnimationFrame(() => {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+});
+
+observer.observe(chatBox, {
+    childList: true,
+    subtree: true
+});
+
+// ================= RESET SPEAKER BUTTON WHEN SPEECH ENDS =================
+
+speechSynthesis.onvoiceschanged = () => {
+
+    if (!speechSynthesis.speaking) {
+
+        isSpeaking = false;
+
+        speakBtn.innerHTML =
+            '<i class="fa-solid fa-volume-high"></i>';
+    }
+
+};
+
+// ================= ESC KEY STOPS SPEECH =================
+
+document.addEventListener("keydown", (e) => {
+
+    if (e.key === "Escape" && speechSynthesis.speaking) {
+
+        speechSynthesis.cancel();
+
+        isSpeaking = false;
+
+        speakBtn.innerHTML =
+            '<i class="fa-solid fa-volume-high"></i>';
+
+    }
+
+});
