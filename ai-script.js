@@ -274,9 +274,7 @@ cameraBtn.addEventListener("click", async () => {
 });
 
 
-// ==============================
-// IMAGE UPLOAD
-// ==============================
+
 
 imageInput.addEventListener("change", async () => {
 
@@ -320,9 +318,7 @@ imageInput.addEventListener("change", async () => {
 });
 
 
-// ==============================
-// VIDEO
-// ==============================
+ 
 
 videoInput.addEventListener("change", () => {
 
@@ -336,9 +332,8 @@ videoInput.addEventListener("change", () => {
 });
 
 
-// ==============================
-// NEW CHAT
-// ==============================
+
+
 
 const newChatBtn = document.getElementById("newChat");
 
@@ -377,9 +372,8 @@ if (newChatBtn) {
 }
 
 
-// ==============================
-// HEADER SPEAKER
-// ==============================
+
+
 
 const headerSpeak = document.getElementById("headerSpeak");
 
@@ -402,9 +396,8 @@ if (headerSpeak) {
 }
 
 
-// ==============================
-// PAGE LOAD
-// ==============================
+
+
 
 window.addEventListener("load", () => {
 
@@ -413,9 +406,7 @@ window.addEventListener("load", () => {
 });
 
 
-// ==============================
-// BEFORE CLOSE
-// ==============================
+
 
 window.addEventListener("beforeunload", () => {
 
@@ -424,9 +415,7 @@ window.addEventListener("beforeunload", () => {
 });
 
 
-// ==============================
-// SUPPORT CHECK
-// ==============================
+
 
 if (!navigator.mediaDevices) {
 

@@ -77,7 +77,7 @@ app.post("/chat", async (req, res) => {
             content: message
         });
 
-        // Keep only recent conversation
+        
         if (conversation.length > 20) {
             conversation = [
                 conversation[0],
@@ -89,7 +89,7 @@ app.post("/chat", async (req, res) => {
             model: "llama-3.3-70b-versatile",
             messages: conversation,
             temperature: 0.7,
-            max_tokens: 55
+            max_tokens: 105
         });
 
         const reply = completion.choices[0].message.content;
@@ -126,7 +126,7 @@ You are Swastya Guru AI.
 
 You are an intelligent AI healthcare assistant.
 
-Always answer in English and if user ask answer in nepali also.
+Always answer in English and if user ask answer in nepali also and answer only health related questions.
 `
         }
     ];
