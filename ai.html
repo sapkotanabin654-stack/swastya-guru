@@ -7,14 +7,14 @@
 
     <link rel="stylesheet" href="ai-style.css">
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
 <div class="container">
 
-    
+    <!-- Sidebar -->
     <aside class="sidebar">
 
         <div class="logo">
@@ -22,20 +22,19 @@
             <h2>स्वास्थ्य गुरु AI</h2>
         </div>
 
-        
         <button class="newChat" id="newChat">
             <i class="fa-solid fa-plus"></i>
             New Chat
         </button>
 
-        
         <div class="history" id="history"></div>
 
     </aside>
 
-    
+    <!-- Main Chat Area -->
     <main class="chatArea">
 
+        <!-- Header -->
         <header>
 
             <div>
@@ -48,7 +47,7 @@
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
-                <button title="डार्क मोड">
+                <button title="Dark Mode">
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
@@ -56,14 +55,12 @@
 
         </header>
 
-        
-        <section id="chatBox">
+        <!-- Scrollable Chat -->
+        <section id="chatBox" class="chatBox">
 
             <div class="bot">
-
                 <div class="bubble">
-
-                    <strong>नमस्ते </strong>
+                    <strong>नमस्ते 👋</strong>
 
                     <br><br>
 
@@ -72,60 +69,52 @@
                     <br><br>
 
                     तपाईं आफ्नो स्वास्थ्य सम्बन्धी कुनै पनि प्रश्न सोध्न सक्नुहुन्छ।
-
                 </div>
-
             </div>
 
         </section>
 
-        
-
+        <!-- Fixed Input Area -->
         <div class="inputArea">
 
             <input
-            type="text"
-            id="prompt"
-            placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
+                type="text"
+                id="prompt"
+                placeholder="यहाँ आफ्नो स्वास्थ्य सम्बन्धी प्रश्न लेख्नुहोस्...">
 
             <div class="tools">
 
-               
-<label for="uploadImage">
-    <input
-        type="file"
-        id="uploadImage"
-        hidden
-        accept="image/*">
-
-    <i class="fa-regular fa-image"></i>
-</label>
-
-
-
-                <label>
+                <label for="uploadImage">
                     <input
-                    type="file"
-                    id="video"
-                    hidden
-                    accept="video/*">
+                        type="file"
+                        id="uploadImage"
+                        hidden
+                        accept="image/*">
+                    <i class="fa-regular fa-image"></i>
+                </label>
 
+                <label for="video">
+                    <input
+                        type="file"
+                        id="video"
+                        hidden
+                        accept="video/*">
                     <i class="fa-solid fa-video"></i>
                 </label>
 
-                <button id="camera">
+                <button id="camera" type="button">
                     <i class="fa-solid fa-camera"></i>
                 </button>
 
-                <button id="mic">
+                <button id="mic" type="button">
                     <i class="fa-solid fa-microphone"></i>
                 </button>
 
-                <button id="speak">
+                <button id="speak" type="button">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
 
-                <button id="send">
+                <button id="send" type="button">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>
 
@@ -140,4 +129,4 @@
 <script src="ai-script.js"></script>
 
 </body>
-</html> 
+</html>
